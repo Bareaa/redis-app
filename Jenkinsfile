@@ -1,26 +1,37 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('BUild da imagem docker'){
-            steps{
-                sh 'docker build -t devops/app .'
+    
+    stages {
+        stage('Build da imagem docker') {
+            steps {
+                script {
+                    // Utilize um nome de imagem mais específico e inclua a tag
+                    docker.build('devops/app:latest')
+                }
             }
-    }
-        stage('Subir docker compose - redis e app'){
-            steps{
-                sh 'docker-compose up --build -d'
+        }
+        
+        stage('Subir docker compose - redis e app') {
+            steps {
+                // Execute o docker-compose usando sh e forneça o caminho para o arquivo docker-compose.yml
+                sh 'docker-compose -f /caminho/para/docker-compose.yml up --build -d'
             }
-    }
-        stage('sleep para subida de containers'){
-            steps{
-                sh 'sleep 10'
+        }
+        
+        stage('Aguardar subida de containers') {
+            steps {
+                // Aguarde um tempo adequado para que os containers subam
+                script {
+                    sleep time: 10, unit: 'SECONDS'
+                }
             }
-    }
-        stage('Teste da aplicação'){
-            steps{
+        }
+        
+        stage('Teste da aplicação') {
+            steps {
+                // Execute o script de teste da aplicação
                 sh 'teste-app.sh'
             }
+        }
     }
-    }
-
 }
