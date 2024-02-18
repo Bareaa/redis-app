@@ -22,5 +22,11 @@ pipeline {
                 sh './teste-app.sh'
             }
         }
+        }
+        stage('encerrando os containers do teste') {
+            steps {
+                sh 'docker-compose down'
+            }
+        }
     }
 }
