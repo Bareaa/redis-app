@@ -2,7 +2,11 @@ version: '3'
 services:
   redis-server:
     image: 'redis'
+    ports:
+      - '6379:6379'
   node-app:
     build: .
     ports:
-      - '8100:8100'
+      - '8090:8081' # Mapeando a porta 8081 do contêiner para a porta 8090 do host
+    depends_on:
+      - redis-server
