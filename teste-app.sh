@@ -8,5 +8,6 @@ elif [[ $RESULT == *"Number"* ]]; then
     echo $RESULT
 else
     echo 'not ok - number of visits'
+    echo "Resposta do servidor: $RESULT"
     exit 1
 fi
