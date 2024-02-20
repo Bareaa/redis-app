@@ -2,6 +2,7 @@ const express = require('express');
 const redis = require('redis');
 
 const app = express();
+app.disable("x-powered-by");
 const client = redis.createClient({
     host: 'redis-server', // Nome do serviço do contêiner Redis no docker-compose.yml
     port: 6379 // Porta padrão do Redis
